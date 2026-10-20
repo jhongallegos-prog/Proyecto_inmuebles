@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Actualizar Mis Datos</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <h5>Datos de Cuenta</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-6">{{ u_form.first_name.label_tag }} {{ u_form.first_name }}</div>
+                        <div class="col-md-6">{{ u_form.last_name.label_tag }} {{ u_form.last_name }}</div>
+                    </div>
+                    <div class="mb-3">{{ u_form.email.label_tag }} {{ u_form.email }}</div>
+
+                    <hr>
+                    <h5>Datos de Perfil</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-6">{{ p_form.rut.label_tag }} {{ p_form.rut }}</div>
+                        <div class="col-md-6">{{ p_form.telefono.label_tag }} {{ p_form.telefono }}</div>
+                    </div>
+                    <div class="mb-3">{{ p_form.direccion.label_tag }} {{ p_form.direccion }}</div>
+                    <div class="mb-3">{{ p_form.tipo_usuario.label_tag }} {{ p_form.tipo_usuario }}</div>
+
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

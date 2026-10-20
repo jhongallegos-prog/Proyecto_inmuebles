@@ -1,0 +1,162 @@
+[
+  {
+    "model": "gestion_inmuebles.Inmueble",
+    "pk": 1,
+    "fields": {
+      "nombre": "Casa familiar en Las Condes",
+      "descripcion": "Amplia casa familiar de dos pisos, con patio, cocina equipada y excelente conectividad.",
+      "m2_construidos": 180,
+      "m2_totales": 250,
+      "estacionamientos": 2,
+      "habitaciones": 4,
+      "banos": 3,
+      "direccion": "Avenida Las Condes 1234",
+      "comuna": "Las Condes",
+      "region": "Región Metropolitana de Santiago",
+      "tipo_inmueble": "casa",
+      "precio_mensual": 1500000,
+      "disponible": true,
+      "propietario": 1
+    }
+  },
+  {
+    "model": "gestion_inmuebles.Inmueble",
+    "pk": 2,
+    "fields": {
+      "nombre": "Departamento moderno en Santiago Centro",
+      "descripcion": "Departamento cercano al metro, supermercados y servicios. Cuenta con cocina integrada y balcón.",
+      "m2_construidos": 65,
+      "m2_totales": 70,
+      "estacionamientos": 1,
+      "habitaciones": 2,
+      "banos": 2,
+      "direccion": "Avenida Santa Isabel 456",
+      "comuna": "Santiago",
+      "region": "Región Metropolitana de Santiago",
+      "tipo_inmueble": "departamento",
+      "precio_mensual": 550000,
+      "disponible": true,
+      "propietario": 1
+    }
+  },
+  {
+    "model": "gestion_inmuebles.Inmueble",
+    "pk": 3,
+    "fields": {
+      "nombre": "Parcela con casa en Puerto Varas",
+      "descripcion": "Parcela con amplios espacios verdes, casa de campo y entorno natural. Ideal para vivir en tranquilidad.",
+      "m2_construidos": 120,
+      "m2_totales": 5000,
+      "estacionamientos": 3,
+      "habitaciones": 3,
+      "banos": 2,
+      "direccion": "Camino Ensenada km 10",
+      "comuna": "Puerto Varas",
+      "region": "Región de Los Lagos",
+      "tipo_inmueble": "parcela",
+      "precio_mensual": 1200000,
+      "disponible": true,
+      "propietario": 1
+    }
+  },
+  {
+    "model": "gestion_inmuebles.Inmueble",
+    "pk": 4,
+    "fields": {
+      "nombre": "Oficina profesional en Providencia",
+      "descripcion": "Oficina ideal para profesionales y pequeñas empresas, con buena conectividad y acceso a transporte público.",
+      "m2_construidos": 45,
+      "m2_totales": 45,
+      "estacionamientos": 1,
+      "habitaciones": 2,
+      "banos": 1,
+      "direccion": "Avenida Providencia 789",
+      "comuna": "Providencia",
+      "region": "Región Metropolitana de Santiago",
+      "tipo_inmueble": "oficina",
+      "precio_mensual": 650000,
+      "disponible": true,
+      "propietario": 1
+    }
+  },
+  {
+    "model": "gestion_inmuebles.Inmueble",
+    "pk": 5,
+    "fields": {
+      "nombre": "Bodega para almacenamiento en Quilicura",
+      "descripcion": "Espacio de almacenamiento con acceso para vehículos de carga, ideal para pequeñas empresas y distribución.",
+      "m2_construidos": 300,
+      "m2_totales": 350,
+      "estacionamientos": 2,
+      "habitaciones": 1,
+      "banos": 1,
+      "direccion": "Camino Lo Echevers 1500",
+      "comuna": "Quilicura",
+      "region": "Región Metropolitana de Santiago",
+      "tipo_inmueble": "bodega",
+      "precio_mensual": 1800000,
+      "disponible": true,
+      "propietario": 1
+    }
+  },
+  {
+    "model": "gestion_inmuebles.Inmueble",
+    "pk": 6,
+    "fields": {
+      "nombre": "Local comercial en Viña del Mar",
+      "descripcion": "Local comercial con buena visibilidad peatonal, cercano a comercios y zonas residenciales.",
+      "m2_construidos": 80,
+      "m2_totales": 80,
+      "estacionamientos": 0,
+      "habitaciones": 1,
+      "banos": 1,
+      "direccion": "Avenida Libertad 900",
+      "comuna": "Viña del Mar",
+      "region": "Región de Valparaíso",
+      "tipo_inmueble": "local_comercial",
+      "precio_mensual": 900000,
+      "disponible": true,
+      "propietario": 1
+    }
+  },
+  {
+    "model": "gestion_inmuebles.Inmueble",
+    "pk": 7,
+    "fields": {
+      "nombre": "Departamento con vista al mar en La Serena",
+      "descripcion": "Departamento cercano a la playa, con terraza, espacios luminosos y acceso a servicios turísticos.",
+      "m2_construidos": 75,
+      "m2_totales": 82,
+      "estacionamientos": 1,
+      "habitaciones": 3,
+      "banos": 2,
+      "direccion": "Avenida del Mar 2000",
+      "comuna": "La Serena",
+      "region": "Región de Coquimbo",
+      "tipo_inmueble": "departamento",
+      "precio_mensual": 700000,
+      "disponible": true,
+      "propietario": 1
+    }
+  },
+  {
+    "model": "gestion_inmuebles.Inmueble",
+    "pk": 8,
+    "fields": {
+      "nombre": "Casa familiar en Concepción",
+      "descripcion": "Casa cómoda con patio, espacios amplios y buena conexión con centros educativos y comerciales.",
+      "m2_construidos": 110,
+      "m2_totales": 180,
+      "estacionamientos": 2,
+      "habitaciones": 3,
+      "banos": 2,
+      "direccion": "Avenida Los Carrera 1200",
+      "comuna": "Concepción",
+      "region": "Región del Biobío",
+      "tipo_inmueble": "casa",
+      "precio_mensual": 650000,
+      "disponible": false,
+      "propietario": 1
+    }
+  }
+]

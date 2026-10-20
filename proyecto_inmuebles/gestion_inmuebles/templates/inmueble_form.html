@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">{{ titulo }}</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Nombre de la propiedad</label>
+                        {{ form.nombre }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Descripción</label>
+                        {{ form.descripcion }}
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Tipo de Inmueble</label>
+                            {{ form.tipo_inmueble }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Precio Mensual ($)</label>
+                            {{ form.precio_mensual }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Comuna</label>
+                            {{ form.comuna }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Región</label>
+                            {{ form.region }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Dirección Exacta</label>
+                        {{ form.direccion }}
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">M2 Construidos</label>
+                            {{ form.m2_construidos }}
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">M2 Totales</label>
+                            {{ form.m2_totales }}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label fw-bold">Habitaciones</label>
+                            {{ form.habitaciones }}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label fw-bold">Baños</label>
+                            {{ form.banos }}
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label fw-bold">Estacionam.</label>
+                            {{ form.estacionamientos }}
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        {{ form.disponible }}
+                        <label class="form-check-label fw-bold" for="id_disponible">
+                            Disponible para arriendo
+                        </label>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-success px-4">Guardar Propiedad</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

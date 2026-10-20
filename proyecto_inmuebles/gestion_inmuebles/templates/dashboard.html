@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Dashboard de {{ user.first_name }}</h2>
+    {% if es_arrendador %}
+        <a href="{% url 'gestion_inmuebles:crear_inmueble' %}" class="btn btn-success">+ Publicar Nuevo Inmueble</a>
+    {% endif %}
+</div>
+
+{% if es_arrendador %}
+    <!-- VISTA PARA EL ARRENDADOR -->
+    <h4>Mis Propiedades Publicadas</h4>
+    {% if mis_inmuebles %}
+        <div class="table-responsive bg-white rounded shadow-sm p-3 mt-3">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Comuna / Región</th>
+                        <th>Precio Mensual</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inmueble in mis_inmuebles %}
+                        <tr>
+                            <td><strong>{{ inmueble.nombre }}</strong></td>
+                            <td>{{ inmueble.get_tipo_inmueble_display }}</td>
+                            <td>{{ inmueble.comuna }}, {{ inmueble.region }}</td>
+                            <td>${{ inmueble.precio_mensual }}</td>
+                            <td>
+                                {% if inmueble.disponible %}
+                                    <span class="badge bg-success">Disponible</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">No disponible</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'gestion_inmuebles:editar_inmueble' inmueble.pk %}" class="btn btn-warning btn-sm me-1">Editar</a>
+                                <a href="{% url 'gestion_inmuebles:eliminar_inmueble' inmueble.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">Aún no has publicado ninguna propiedad. Haz clic en <strong>"+ Publicar Nuevo Inmueble"</strong> para comenzar.</div>
+    {% endif %}
+
+    <!-- MOVER AQUÍ: TABLA DE SOLICITUDES RECIBIDAS (PARA EL ARRENDADOR) -->
+    <h4 class="mt-5">Solicitudes de Arriendo Recibidas</h4>
+    <div class="bg-white rounded shadow-sm p-3 mt-3">
+        {% if solicitudes_recibidas %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Inmueble</th>
+                            <th>Solicitante</th>
+                            <th>Contacto</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for solicitud in solicitudes_recibidas %}
+                            <tr>
+                                <td><strong>{{ solicitud.inmueble.nombre }}</strong></td>
+                                <td>{{ solicitud.arrendatario.get_full_name|default:solicitud.arrendatario.username }}</td>
+                                <td>{{ solicitud.arrendatario.email }}</td>
+                                <td>
+                                    {% if solicitud.estado == 'pendiente' %}
+                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                    {% elif solicitud.estado == 'aceptada' %}
+                                        <span class="badge bg-success">Aceptada</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Rechazada</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if solicitud.estado == 'pendiente' %}
+                                        <a href="{% url 'gestion_inmuebles:responder_solicitud' solicitud.id 'aceptar' %}" 
+                                           class="btn btn-success btn-sm me-1" 
+                                           onclick="return confirm('¿Aceptar esta solicitud? El inmueble pasará a estado no disponible.');">
+                                            Aceptar
+                                        </a>
+                                        <a href="{% url 'gestion_inmuebles:responder_solicitud' solicitud.id 'rechazar' %}" 
+                                           class="btn btn-outline-danger btn-sm"
+                                           onclick="return confirm('¿Rechazar esta solicitud?');">
+                                            Rechazar
+                                        </a>
+                                    {% else %}
+                                        <span class="text-muted small">Procesada</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted mb-0">No has recibido solicitudes de arriendo para tus propiedades aún.</p>
+        {% endif %}
+    </div>
+
+{% else %}
+    <!-- VISTA PARA EL ARRENDATARIO -->
+    <h4>Inmuebles Disponibles para Arriendo</h4>
+    <p class="text-muted">Explora las opciones de arriendo en diferentes comunas y regiones.</p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+        {% for inmueble in inmuebles_disponibles %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">{{ inmueble.get_tipo_inmueble_display }}</span>
+                        <h5 class="card-title">{{ inmueble.nombre }}</h5>
+                        <p class="card-text text-muted small">{{ inmueble.comuna }}, {{ inmueble.region }}</p>
+                        <p class="card-text">{{ inmueble.descripcion|truncatewords:15 }}</p>
+                        <ul class="list-unstyled small">
+                            <li>Hab: {{ inmueble.habitaciones }} | Baños: {{ inmueble.banos }}</li>
+                            <li>M2: {{ inmueble.m2_construidos }} m2(útil) / {{ inmueble.m2_totales }} m2 (total)</li>
+                        </ul>
+                        <h6 class="text-success fw-bold">${{ inmueble.precio_mensual }} / mes</h6>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <form action="{% url 'gestion_inmuebles:solicitar_arriendo' inmueble.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary w-100" onclick="return confirm('¿Confirmas que deseas enviar una solicitud de arriendo para esta propiedad?');">
+                                <i class="bi bi-house-check"></i> Solicitar Arriendo
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12"><div class="alert alert-warning">No hay inmuebles disponibles en este momento.</div></div>
+        {% endfor %}
+    </div>
+
+    <!-- SEGUIMIENTO DE SOLICITUDES ENVIADAS POR EL ARRENDATARIO -->
+    <h4 class="mt-5">Mis Solicitudes de Arriendo</h4>
+    <div class="bg-white rounded shadow-sm p-3 mt-3">
+        {% if mis_solicitudes %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Inmueble</th>
+                            <th>Ubicación</th>
+                            <th>Fecha de Solicitud</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for solicitud in mis_solicitudes %}
+                            <tr>
+                                <td><strong>{{ solicitud.inmueble.nombre }}</strong></td>
+                                <td>{{ solicitud.inmueble.comuna }}</td>
+                                <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                                <td>
+                                    {% if solicitud.estado == 'pendiente' %}
+                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                    {% elif solicitud.estado == 'aceptada' %}
+                                        <span class="badge bg-success">Aceptada</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Rechazada</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted mb-0">Aún no has realizado ninguna solicitud de arriendo.</p>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
